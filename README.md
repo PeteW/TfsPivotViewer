@@ -16,6 +16,8 @@ This solution contains a silverlight application which reads query string filter
 ### Installation
 * Copy the TfsVisualizer dll to the bin of your web site
 * Register the http handler like below:
+
+
 ```xml
 <handlers>
       <add name="DeepZoomHandler" path="*TfsWorkItems.json" verb="GET" type="TfsVisualizer.Util.DeepZoomHttpHandler" />
@@ -23,6 +25,8 @@ This solution contains a silverlight application which reads query string filter
 ```
 * Copy the xap to an accessible location within the same site
 * Edit a page to reference the xap:
+
+
 ```html
     <object id="4" data="data:application/x-silverlight-2," type="application/x-silverlight-2" width="100%" height="100%">
         <param name="source" value='@Url.Content("~/ClientBin/TfsVisualizer.Silverlight.xap")'/>
