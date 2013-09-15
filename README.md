@@ -23,6 +23,12 @@ This solution contains a silverlight application which reads query string filter
       <add name="DeepZoomHandler" path="*TfsWorkItems.json" verb="GET" type="TfsVisualizer.Util.DeepZoomHttpHandler" />
 </handlers>
 ```
+* Add a web.config appsetting specifying where your TFS server is located:
+
+```xml
+<add key="TfsServerUrl" value="http://yourtfsserver:8080/tfs/" />
+```
+
 * Copy the xap to an accessible location within the same site
 * Edit a page to reference the xap:
 
