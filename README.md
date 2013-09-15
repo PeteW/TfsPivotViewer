@@ -3,7 +3,7 @@ TfsPivotViewer
 
 Navigate your population of TFS work items with the power of silverlight pivot viewer and deep zoom
 
-###Navigate TFS like never before
+###Navigate TFS in turbo mode
 * Minimal installation: install/register an http handler, add the XAP to a page and thats it
 * Works in SharePoint, MVC, ASPX sites or any other IIS site
 
