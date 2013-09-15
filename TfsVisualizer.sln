@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TfsVisualizer.Silverlight", "TfsVisualizer.Silverlight\TfsVisualizer.Silverlight.csproj", "{4EE05FEF-1729-456A-BCFC-D6D52A9B0CCC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TfsVisualizer", "TfsVisualizer\TfsVisualizer.csproj", "{66F0E95E-A5D0-4ED3-8B46-0D0190ADF8C3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4EE05FEF-1729-456A-BCFC-D6D52A9B0CCC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4EE05FEF-1729-456A-BCFC-D6D52A9B0CCC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4EE05FEF-1729-456A-BCFC-D6D52A9B0CCC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4EE05FEF-1729-456A-BCFC-D6D52A9B0CCC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66F0E95E-A5D0-4ED3-8B46-0D0190ADF8C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66F0E95E-A5D0-4ED3-8B46-0D0190ADF8C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66F0E95E-A5D0-4ED3-8B46-0D0190ADF8C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66F0E95E-A5D0-4ED3-8B46-0D0190ADF8C3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

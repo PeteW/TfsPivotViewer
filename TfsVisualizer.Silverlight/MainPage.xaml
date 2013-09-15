@@ -1,0 +1,94 @@
+﻿<UserControl x:Class="TfsVisualizer.Silverlight.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:Pivot="clr-namespace:System.Windows.Controls.Pivot;assembly=System.Windows.Controls.Pivot"
+    xmlns:silverlight="clr-namespace:TfsVisualizer.Silverlight"
+    mc:Ignorable="d"
+    d:DesignHeight="300" 
+    d:DesignWidth="400">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <silverlight:TfsItemToForegroundColorConverter x:Name="foregroundConv"/>
+            <silverlight:TfsItemToBackgroundColorConverter x:Name="backgroundgroundConv"/>
+            <silverlight:StringToUriConverter x:Name="stringToUrlConv"/>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid x:Name="LayoutRoot" Background="White">
+        <Pivot:PivotViewer 
+            x:Name="pivotViewer" 
+            AccentColor="DarkSlateBlue" 
+            SecondaryBackground="White">
+            <Pivot:PivotViewer.PivotProperties>
+                <Pivot:PivotViewerLinkProperty Id="Url" Binding="{Binding Url, Converter={StaticResource stringToUrlConv}}" Options="None"  />
+                <Pivot:PivotViewerStringProperty Id="Id" Binding="{Binding Id}" DisplayName="Id" Options="None"  />
+                <Pivot:PivotViewerStringProperty Id="Project" Binding="{Binding Project}" DisplayName="Project" Options="CanFilter"  />
+                <Pivot:PivotViewerStringProperty Id="Type" Binding="{Binding Type}" DisplayName="Type" Options="CanFilter"  />
+                <Pivot:PivotViewerStringProperty Id="Status" Binding="{Binding Status}" DisplayName="Status" Options="CanFilter"  />
+                <Pivot:PivotViewerStringProperty Id="AssignedTo" Binding="{Binding AssignedTo}" DisplayName="AssignedTo" Options="CanFilter"  />
+                <Pivot:PivotViewerStringProperty Id="Iteration" Binding="{Binding Iteration}" DisplayName="Iteration" Options="CanFilter"  />
+                <Pivot:PivotViewerStringProperty Id="AreaPath" Binding="{Binding AreaPath}" DisplayName="AreaPath" Options="CanFilter"  />
+                <Pivot:PivotViewerNumericProperty Id="Estimate" Binding="{Binding Estimate}" DisplayName="Estimate" Options="CanFilter"  />
+                <Pivot:PivotViewerStringProperty Id="Activity" Binding="{Binding Activity}" DisplayName="Activity" Options="CanFilter"  />
+                <Pivot:PivotViewerStringProperty Id="Title" Binding="{Binding Title}" DisplayName="Title" Options="CanSearchText,WrappingText"  />
+                <Pivot:PivotViewerStringProperty Id="Description" Binding="{Binding Description}" DisplayName="Description" Options="CanSearchText,WrappingText"  />
+                <Pivot:PivotViewerStringProperty Id="History" Binding="{Binding History}" DisplayName="History" Options="CanSearchText,WrappingText"  />
+            </Pivot:PivotViewer.PivotProperties>
+            <Pivot:PivotViewer.ItemTemplates>
+                <Pivot:PivotViewerItemTemplate>
+                    <Border Padding="20"                         
+                            Width="200" 
+                            Height="200" 
+                            Background="{Binding Converter={StaticResource backgroundgroundConv}}" >
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <RichTextBlock TextWrapping="Wrap" >
+                                <Paragraph >
+                                    <InlineUIContainer>
+                                        <TextBlock
+                                        Grid.Column="0"
+                                        Text="{Binding Id}" 
+                                        Foreground="{Binding Converter={StaticResource foregroundConv}}" 
+                                        FontSize="25"
+                                        FontWeight="Bold"
+                                        />
+                                    </InlineUIContainer>
+                                    <Run                                 
+                                    Foreground="{Binding Converter={StaticResource foregroundConv}}" 
+                                    Text="{Binding Path=Title}" />
+                                </Paragraph>
+                            </RichTextBlock>
+                            <Grid
+                                Grid.Row="1" 
+                                VerticalAlignment="Bottom" 
+                                >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock 
+                                    Grid.Column="0"
+                                    HorizontalAlignment="Left"
+                                    Foreground="{Binding Converter={StaticResource foregroundConv}}" 
+                                    Text="{Binding Path=Estimate}"
+                                    FontWeight="Bold"
+                                    FontSize="18"
+                                    />
+                                <TextBlock 
+                                    Grid.Column="1"
+                                    HorizontalAlignment="Right"
+                                    Foreground="{Binding Converter={StaticResource foregroundConv}}" 
+                                    Text="{Binding Path=AssignedTo}" />
+                            </Grid>
+                        </Grid>
+
+                    </Border>
+                </Pivot:PivotViewerItemTemplate>
+            </Pivot:PivotViewer.ItemTemplates>
+        </Pivot:PivotViewer>
+    </Grid>
+</UserControl>
