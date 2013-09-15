@@ -41,4 +41,4 @@ This solution contains a silverlight application which reads query string filter
 ### Usage
 Browse to the page. To improve performance, filter by project name, iteration or area path such as:
 
-http://path.tosite/page.html/?ProjectName=MyProjectonPath=myIterationPath
+http://path.tosite/page.html/?ProjectName=MyProjec&IterationPath=myIterationPath
