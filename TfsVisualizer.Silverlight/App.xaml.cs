@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Windows;
+using System.Windows.Browser;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -14,6 +15,15 @@ namespace TfsVisualizer.Silverlight
 {
     public partial class App : Application
     {
+        private static string _httpHandlerUri = null;
+
+        /// <summary>
+        /// You can override this in the html options, but by default it is going to http://host/TfsWorkItems.json?i=1
+        /// </summary>
+        public static string HttpHandlerUri
+        {
+            get { return _httpHandlerUri ?? HtmlPage.Document.DocumentUri.GetRoot() + "TfsWorkItems.Json?i=1"; }
+        }
 
         public App()
         {
@@ -27,6 +37,9 @@ namespace TfsVisualizer.Silverlight
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             this.RootVisual = new MainPage();
+            if (e.InitParams.ContainsKey("HttpHandlerUri"))
+                _httpHandlerUri = e.InitParams["HttpHandlerUri"];
+            ((MainPage)RootVisual).Load();
         }
 
         private void Application_Exit(object sender, EventArgs e)

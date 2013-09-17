@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization.Json;
+using System.Text.RegularExpressions;
 using System.Web;
 using Microsoft.TeamFoundation.Client;
 using Microsoft.TeamFoundation.Framework.Common;
 using Microsoft.TeamFoundation.WorkItemTracking.Client;
-using Newtonsoft.Json;
-using TfsVisualizer.Configuration;
-using TfsVisualizer.Models;
+using TfsVisualizer.ServerCore.Configuration;
 
-namespace TfsVisualizer.Util
+namespace TfsVisualizer.ServerCore
 {
-    public class DeepZoomHttpHandler : IHttpHandler
+    public class TfsVisualizerHttpHandler : IHttpHandler
     {
         #region IHttpHandler Members
 
@@ -21,7 +21,8 @@ namespace TfsVisualizer.Util
             //query tfs
             var tfsWorkItems = GetTfsWorkItems(criteria);
             //serialize to json and return response
-            context.Response.Write(JsonConvert.SerializeObject(tfsWorkItems));
+            var serializer = new DataContractJsonSerializer(tfsWorkItems.GetType());
+            serializer.WriteObject(context.Response.OutputStream, tfsWorkItems);
             context.Response.End();
         }
 
@@ -43,13 +44,13 @@ namespace TfsVisualizer.Util
 
             var configurationServer = TfsConfigurationServerFactory.GetConfigurationServer(new Uri(SettingsManager.TfsUrl));
             var catalogNode = configurationServer.CatalogNode;
-            var catalogNodes = catalogNode.QueryChildren(new Guid[] {CatalogResourceTypes.ProjectCollection}, false, CatalogQueryOptions.None);
+            var catalogNodes = catalogNode.QueryChildren(new Guid[] { CatalogResourceTypes.ProjectCollection }, false, CatalogQueryOptions.None);
 
             foreach (var node in catalogNodes)
             {
                 var collectionId = new Guid(node.Resource.Properties["InstanceId"]);
                 var teamProjectCollection = configurationServer.GetTeamProjectCollection(collectionId);
-                var workItemStore = (WorkItemStore) teamProjectCollection.GetService(typeof (WorkItemStore));
+                var workItemStore = (WorkItemStore)teamProjectCollection.GetService(typeof(WorkItemStore));
                 var workItemCollection = GetWorkItemCollection(workItemStore, criteria);
                 workItemCollection.PageSize = 200;
                 foreach (WorkItem workItem in workItemCollection)
@@ -81,8 +82,8 @@ namespace TfsVisualizer.Util
                     tfsWorkItem.Activity = workItem.GetActionsHistory().GetLength(0).ToString();
                     tfsWorkItem.Id = workItem.Id.ToString();
                     tfsWorkItem.Title = workItem.Title;
-                    tfsWorkItem.History = workItem.History;
-                    tfsWorkItem.Description = workItem.Description;
+                    tfsWorkItem.History = Regex.Replace(workItem.History, @"<[^>]*>", String.Empty);
+                    tfsWorkItem.Description = Regex.Replace(workItem.Description, @"<[^>]*>", String.Empty);
                     result.Add(tfsWorkItem);
                 }
             }
@@ -105,11 +106,11 @@ namespace TfsVisualizer.Util
             if (!criteria.IsEmpty)
             {
                 var whereClause = new List<string>();
-                if(!string.IsNullOrEmpty(criteria.ProjectName))
+                if (!string.IsNullOrEmpty(criteria.ProjectName))
                     whereClause.Add(string.Format("[Team Project] = '{0}'", criteria.ProjectName));
-                if(!string.IsNullOrEmpty(criteria.IterationPath))
+                if (!string.IsNullOrEmpty(criteria.IterationPath))
                     whereClause.Add(string.Format("[Iteration Path] = '{0}'", criteria.IterationPath));
-                if(!string.IsNullOrEmpty(criteria.WorkItemType))
+                if (!string.IsNullOrEmpty(criteria.WorkItemType))
                     whereClause.Add(string.Format("[Work Item Type] = '{0}'", criteria.WorkItemType));
                 wiql += " WHERE " + string.Join(" AND ", whereClause.ToArray());
             }

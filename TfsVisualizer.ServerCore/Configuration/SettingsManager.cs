@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Configuration;
 
-namespace TfsVisualizer.Configuration
+namespace TfsVisualizer.ServerCore.Configuration
 {
     public class SettingsManager
     {
         public static string TfsUrl
         {
-            get { return GetAppSetting("TfsServerUrl", "http://yourtfsserver:8080/tfs/"); }
+            get { return GetAppSetting("TfsServerUrl", "http://xxx:8080/tfs/"); }
         }
 
         /// <summary>

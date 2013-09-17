@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TfsVisualizer.Models
+namespace TfsVisualizer.ServerCore
 {
     public class TfsWorkItem
     {

@@ -16,6 +16,10 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid x:Name="LayoutRoot" Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="12"/>
+        </Grid.RowDefinitions>
         <Pivot:PivotViewer 
             x:Name="pivotViewer" 
             AccentColor="DarkSlateBlue" 
@@ -90,5 +94,6 @@
                 </Pivot:PivotViewerItemTemplate>
             </Pivot:PivotViewer.ItemTemplates>
         </Pivot:PivotViewer>
+        <TextBlock Grid.Row="1" x:Name="txtUrl"/>
     </Grid>
 </UserControl>

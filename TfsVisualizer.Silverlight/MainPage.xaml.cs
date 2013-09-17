@@ -22,13 +22,14 @@ namespace TfsVisualizer.Silverlight
 {
     public partial class MainPage : UserControl
     {
-
         public MainPage()
         {
             InitializeComponent();
+        }
 
-            //get the base url of the hosting site and try to load http://[your site]/TfsWorkItems.json
-            var url = HtmlPage.Document.DocumentUri.GetRoot() + "TfsWorkItems.Json?i=1";
+        public void Load()
+        {
+            var url = App.HttpHandlerUri;
 
             //add parameters if specified in the url
             var parameterBuilder = new StringBuilder("");
@@ -37,17 +38,25 @@ namespace TfsVisualizer.Silverlight
                 parameterBuilder.AppendFormat("&{0}={1}", key, HttpUtility.UrlEncode(HtmlPage.Document.QueryString[key]));
             }
             url += parameterBuilder.ToString();
+            txtUrl.Text = url;
             var wc = new WebClient();
             wc.OpenReadCompleted += wc_OpenReadCompleted;
-            wc.OpenReadAsync(new Uri(url, UriKind.Absolute));
+            wc.OpenReadAsync(new Uri(url, UriKind.RelativeOrAbsolute));
         }
 
         public void wc_OpenReadCompleted(object sender, OpenReadCompletedEventArgs e)
         {
-            //deserialize JSON array into objects and feed it to the pivot viewer
-            var serializer = new DataContractJsonSerializer(typeof(List<TfsWorkItem>));
-            var tfsWorkItems = (List<TfsWorkItem>)serializer.ReadObject(e.Result);
-            pivotViewer.ItemsSource = new ObservableCollection<TfsWorkItem>(tfsWorkItems);
+            try
+            {
+                //deserialize JSON array into objects and feed it to the pivot viewer
+                var serializer = new DataContractJsonSerializer(typeof (List<TfsWorkItem>));
+                var tfsWorkItems = (List<TfsWorkItem>) serializer.ReadObject(e.Result);
+                pivotViewer.ItemsSource = new ObservableCollection<TfsWorkItem>(tfsWorkItems);
+            }
+            catch (Exception exp)
+            {
+                MessageBox.Show(exp.ToString());
+            }
         }
     }
 }

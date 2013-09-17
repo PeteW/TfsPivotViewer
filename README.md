@@ -20,7 +20,7 @@ This solution contains a silverlight application which reads query string filter
 
 ```xml
 <handlers>
-      <add name="DeepZoomHandler" path="*TfsWorkItems.json" verb="GET" type="TfsVisualizer.Util.DeepZoomHttpHandler" />
+      <add name="DeepZoomHandler" path="*TfsWorkItems.json" verb="GET" type="TfsVisualizer.ServerCore.TfsVisualizerHttpHandler, TfsVisualizer.ServerCore, Version=1.0.0.0, Culture=Neutral, PublicKeyToken=d4c878a462b19749"/>
 </handlers>
 ```
 * Add a web.config appsetting specifying where your TFS server is located:
