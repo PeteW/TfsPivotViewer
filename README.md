@@ -15,7 +15,7 @@ This solution contains a silverlight application which reads query string filter
 
 ### Installation
 * Copy the TfsVisualizer dll to the bin of your web site
-* Register the http handler like below:
+* Register the http handler like below (this is a handler registration for integrated pipeline mode):
 
 
 ```xml
@@ -46,6 +46,13 @@ This solution contains a silverlight application which reads query string filter
     </object>
     <iframe id="_sl_historyFrame" style="visibility: hidden; height: 0px; width: 0px; border: 0px"></iframe>
 ```
+
+* You can edit the URL of the http handler for the silverlight app using the initParams - HttpHandlerUri property. In this example I am setting the url to a SharePoint location
+
+```xml
+        <param name="initParams" value="HttpHandlerUri=https://sharepoint/portal/_layouts/TfsWorkItems.ashx?i=1" />
+```
+
 * use Silverlight.js if desired
 
 ### Usage
