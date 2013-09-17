@@ -25,7 +25,15 @@ namespace TfsVisualizer.Silverlight
         public MainPage()
         {
             InitializeComponent();
+            pivotViewer.Loaded += pivotViewer_Loaded;
         }
+
+        void pivotViewer_Loaded(object sender, RoutedEventArgs e)
+        {
+            pivotViewer.ItemsSource = _tfsWorkItems;
+        }
+
+        private ObservableCollection<TfsWorkItem> _tfsWorkItems = new ObservableCollection<TfsWorkItem>(); 
 
         public void Load()
         {
@@ -48,15 +56,21 @@ namespace TfsVisualizer.Silverlight
         {
             try
             {
+                _tfsWorkItems.Clear();
                 //deserialize JSON array into objects and feed it to the pivot viewer
                 var serializer = new DataContractJsonSerializer(typeof (List<TfsWorkItem>));
-                var tfsWorkItems = (List<TfsWorkItem>) serializer.ReadObject(e.Result);
-                pivotViewer.ItemsSource = new ObservableCollection<TfsWorkItem>(tfsWorkItems);
+                var incomingWorkItems = (List<TfsWorkItem>) serializer.ReadObject(e.Result);
+                incomingWorkItems.ForEach(x=>_tfsWorkItems.Add(x));
             }
             catch (Exception exp)
             {
                 MessageBox.Show(exp.ToString());
             }
+        }
+
+        private void BtnRefresh_OnClick(object sender, RoutedEventArgs e)
+        {
+            Load();
         }
     }
 }
