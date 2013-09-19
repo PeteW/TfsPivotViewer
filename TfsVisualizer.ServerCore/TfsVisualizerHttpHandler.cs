@@ -67,11 +67,18 @@ namespace TfsVisualizer.ServerCore
                     catch
                     {
                     }
+                    var team = string.Empty;
+                    try
+                    {
+                        team = workItem.Fields["Team"].Value.ToString();
+                    }
+                    catch{}
 
                     var tfsWorkItem = new TfsWorkItem();
                     tfsWorkItem.Url = url;
                     tfsWorkItem.DateCreated = workItem.CreatedDate;
                     tfsWorkItem.CreatedBy = workItem.CreatedBy;
+                    tfsWorkItem.Team = team;
                     tfsWorkItem.Status = workItem.State;
                     tfsWorkItem.Project = workItem.Project.Name;
                     tfsWorkItem.Type = workItem.Type.Name;
@@ -101,6 +108,7 @@ namespace TfsVisualizer.ServerCore
                         ,[Original Estimate]
                         ,[Remaining Work]
                         ,[Effort]
+                        ,[Team]
                    From 
                         WorkItems";
             if (!criteria.IsEmpty)

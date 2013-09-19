@@ -42,6 +42,7 @@
                 <Pivot:PivotViewerLinkProperty Id="Url" Binding="{Binding Url, Converter={StaticResource stringToUrlConv}}" Options="None"  />
                 <Pivot:PivotViewerStringProperty Id="Id" Binding="{Binding Id}" DisplayName="Id" Options="None"  />
                 <Pivot:PivotViewerStringProperty Id="Project" Binding="{Binding Project}" DisplayName="Project" Options="CanFilter"  />
+                <Pivot:PivotViewerStringProperty Id="Team" Binding="{Binding Team}" DisplayName="Team" Options="CanFilter"  />
                 <Pivot:PivotViewerStringProperty Id="Type" Binding="{Binding Type}" DisplayName="Type" Options="CanFilter"  />
                 <Pivot:PivotViewerStringProperty Id="Status" Binding="{Binding Status}" DisplayName="Status" Options="CanFilter"  />
                 <Pivot:PivotViewerStringProperty Id="AssignedTo" Binding="{Binding AssignedTo}" DisplayName="AssignedTo" Options="CanFilter"  />
@@ -61,8 +62,8 @@
                             Background="{Binding Converter={StaticResource backgroundgroundConv}}" >
                         <Grid>
                             <Grid.RowDefinitions>
-                                <RowDefinition/>
-                                <RowDefinition/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="22"/>
                             </Grid.RowDefinitions>
                             <RichTextBlock TextWrapping="Wrap" >
                                 <Paragraph >
@@ -71,13 +72,15 @@
                                         Grid.Column="0"
                                         Text="{Binding Id}" 
                                         Foreground="{Binding Converter={StaticResource foregroundConv}}" 
-                                        FontSize="25"
+                                        FontSize="20"
                                         FontWeight="Bold"
                                         />
                                     </InlineUIContainer>
                                     <Run                                 
                                     Foreground="{Binding Converter={StaticResource foregroundConv}}" 
-                                    Text="{Binding Path=Title}" />
+                                    Text="{Binding Path=Title}"
+                                    FontSize="16"
+                                        />
                                 </Paragraph>
                             </RichTextBlock>
                             <Grid
@@ -85,8 +88,8 @@
                                 VerticalAlignment="Bottom" 
                                 >
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition/>
+                                    <ColumnDefinition Width="30"/>
+                                    <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
                                 <TextBlock 
                                     Grid.Column="0"

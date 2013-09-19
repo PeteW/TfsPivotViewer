@@ -5,6 +5,7 @@ namespace TfsVisualizer.ServerCore
     public class TfsWorkItem
     {
         public DateTime DateCreated { get; set; }
+        public string Team { get; set; }
         public string Url { get; set; }
         public string CreatedBy { get; set; }
         public string Status { get; set; }
