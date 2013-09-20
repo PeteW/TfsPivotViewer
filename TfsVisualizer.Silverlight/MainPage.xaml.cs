@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
+using System.IO.IsolatedStorage;
 using System.Linq;
 using System.Net;
 using System.Runtime.Serialization.Json;
@@ -26,9 +27,31 @@ namespace TfsVisualizer.Silverlight
         {
             InitializeComponent();
             pivotViewer.Loaded += pivotViewer_Loaded;
+            pivotViewer.FilterChanged += pivotViewer_FilterChanged;
         }
 
-        void pivotViewer_Loaded(object sender, RoutedEventArgs e)
+        public string Filter
+        {
+            get
+            {
+                try
+                {
+                    return IsolatedStorageSettings.ApplicationSettings["Filter"].ToString();
+                }
+                catch
+                {
+                    return string.Empty;
+                }
+            }
+            set { IsolatedStorageSettings.ApplicationSettings["Filter"] = value; }
+        }
+
+        void pivotViewer_FilterChanged(object sender, EventArgs e)
+        {
+            Filter = pivotViewer.Filter;
+        }
+
+        private void pivotViewer_Loaded(object sender, RoutedEventArgs e)
         {
             pivotViewer.ItemsSource = _tfsWorkItems;
         }
@@ -65,6 +88,14 @@ namespace TfsVisualizer.Silverlight
             catch (Exception exp)
             {
                 MessageBox.Show(exp.ToString());
+            }
+            try
+            {
+                pivotViewer.Filter = Filter;
+            }
+            catch
+            {
+                pivotViewer.Filter = string.Empty;
             }
         }
 
