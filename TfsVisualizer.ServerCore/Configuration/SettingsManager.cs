@@ -7,7 +7,7 @@ namespace TfsVisualizer.ServerCore.Configuration
     {
         public static string TfsUrl
         {
-            get { return GetAppSetting("TfsServerUrl", "http://xxxx:8080/tfs/"); }
+            get { return GetAppSetting("TfsServerUrl", "http://?????:8080/tfs/"); }
         }
 
         /// <summary>

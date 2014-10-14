@@ -29,6 +29,10 @@ namespace TfsVisualizer.Silverlight
                 return Extensions.GetColorFromHex("8b6f3d");
             if (item.Type == "Bug")
                 return Extensions.GetColorFromHex("8b3d59");
+            if (item.Type == "Feature")
+                return Extensions.GetColorFromHex("e070e0");
+            if (item.Type == "User Story")
+                return Extensions.GetColorFromHex("70a8e0");
             return Extensions.GetColorFromHex("dcefe8");
         }
 

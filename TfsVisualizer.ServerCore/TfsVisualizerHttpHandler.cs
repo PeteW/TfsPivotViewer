@@ -107,7 +107,7 @@ namespace TfsVisualizer.ServerCore
                         ,[Assigned To]
                         ,[Original Estimate]
                         ,[Remaining Work]
-                        ,[Effort]
+                        
                         ,[Team]
                    From 
                         WorkItems";
